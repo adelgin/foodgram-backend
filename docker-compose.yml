@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres:13
+    container_name: foodgram-db
+    environment:
+      POSTGRES_DB: foodgram
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - foodgram-network
+
+  app:
+    build: .
+    container_name: foodgram-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/foodgram
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - foodgram-network
+
+volumes:
+  postgres_data:
+
+networks:
+  foodgram-network:
+    driver: bridge

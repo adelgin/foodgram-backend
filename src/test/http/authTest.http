@@ -1,0 +1,21 @@
+### Создание нового пользователя
+POST http://localhost:8080/api/auth/
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "username": "johndoe",
+  "firstName": "John",
+  "lastName": "Doe",
+  "password": "securePassword123"
+}
+
+
+### Получение логина
+POST http://localhost:8080/api/auth/token/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securePassword123"
+}
